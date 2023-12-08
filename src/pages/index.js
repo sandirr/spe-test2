@@ -39,8 +39,8 @@ export default function Home() {
       })
   },[])
 
-  const handleChangeQty = (idx, newVal) => {
-    if(newVal > 0){
+  const handleChangeQty = (idx, newVal, maxStock) => {
+    if(newVal > 0 && newVal <= maxStock){
       const newCarsQty = cars.map((car, index)=> {
         if(index === idx){
           return ({
@@ -98,7 +98,7 @@ export default function Home() {
                     </div>
                   </td>
                   <td className='center'>
-                    <input type='number' value={car.quantity} onChange={(e)=>handleChangeQty(index, e.target.value)} style={{width:32, height:32, borderRadius:4, textAlign:'center'}} />
+                    <input type='number' value={car.quantity} onChange={(e)=>handleChangeQty(index, e.target.value, car.product.stock)} style={{width:32, height:32, borderRadius:4, textAlign:'center'}} />
                   </td>
                   <td className='center'>IDR. {parseFloat(car.quantity * car.product.price).toLocaleString()}</td>
                 </tr>
