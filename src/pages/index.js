@@ -39,6 +39,20 @@ export default function Home() {
       })
   },[])
 
+  const handleChangeQty = (idx, newVal) => {
+    const newCarsQty = cars.map((car, index)=> {
+      if(index === idx){
+        return ({
+          ...car,
+          quantity: newVal
+        })
+      }
+
+      return car
+    })
+    setCars(newCarsQty)
+  }
+
   if(isClient) return (
     <>
       <Head>
@@ -81,7 +95,9 @@ export default function Home() {
                       </div>
                     </div>
                   </td>
-                  <td className='center'>{car.quantity}</td>
+                  <td className='center'>
+                    <input type='number' value={car.quantity} onChange={(e)=>handleChangeQty(index, e.target.value)} style={{width:32, height:32, borderRadius:4, textAlign:'center'}} />
+                  </td>
                   <td className='center'>IDR. {parseFloat(car.quantity * car.product.price).toLocaleString()}</td>
                 </tr>
               ))}
