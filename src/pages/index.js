@@ -40,17 +40,19 @@ export default function Home() {
   },[])
 
   const handleChangeQty = (idx, newVal) => {
-    const newCarsQty = cars.map((car, index)=> {
-      if(index === idx){
-        return ({
-          ...car,
-          quantity: newVal
-        })
-      }
-
-      return car
-    })
-    setCars(newCarsQty)
+    if(newVal > 0){
+      const newCarsQty = cars.map((car, index)=> {
+        if(index === idx){
+          return ({
+            ...car,
+            quantity: newVal
+          })
+        }
+  
+        return car
+      })
+      setCars(newCarsQty)
+    }
   }
 
   if(isClient) return (
