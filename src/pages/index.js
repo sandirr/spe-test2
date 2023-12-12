@@ -8,14 +8,14 @@ import axios from 'axios'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({hola}) {
   const [isClient, setIsClient] = useState(false)
  
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  const [time, setTime] = useState(moment().format('MMMM Do, YYYY - HH:mm:ss'))
+  const [time, setTime] = useState(()=> moment().format('MMMM Do, YYYY - HH:mm:ss'))
   const [cars, setCars] = useState([])
 
   useEffect(()=>{
@@ -31,7 +31,6 @@ export default function Home() {
         }
       })
       .then(res=>{
-        console.log(res)
         setCars(res.data)
       })
       .catch(err=>{
@@ -54,6 +53,10 @@ export default function Home() {
       setCars(newCarsQty)
     }
   }
+
+  useEffect(()=>{
+    console.log(1)
+  },[])
 
   if(isClient) return (
     <>
@@ -106,7 +109,7 @@ export default function Home() {
 
               <tr className='table-foot'>
                 <td colSpan={2} style={{textAlign:'right'}}>TOTAL</td>
-                <td className='center'>IDR. {cars.length && parseFloat(cars.reduce((prev,next)=> {return prev + (next.quantity * next.product.price)}, 0)).toLocaleString()}</td>
+                <td className='center'>IDR. {cars.length && cars.reduce((prev,next)=> {return prev + (next.quantity * next.product.price)}, 0).toLocaleString('ar-EG')}</td>
               </tr>
             </tbody>
           </table>
